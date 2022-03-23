@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose')
+const { isEmail } = require('validator')
 
 // schema 
 // how to trim extra space 
@@ -8,6 +9,28 @@ const userSchema = new Schema({
         trim: true,
         minLength: 4,
         maxLength: 8,
+        required: [true, `username is required and must be at least 4 min and max length of 8 `]
+        // sets require to true and sets our own custome error message when no passed in 
+        // 1st element is whether its required or not 
+        // 2nd element is the custom error message 
+    },
+    email: {
+        type: String,
+        required: true,
+        trim: true,
+        lowercase: true,
+
+        validate: {
+            //actual value for the email that the user is providing 
+            validator: function (value) {
+                return isEmail(value)
+            },
+            // user Object is the whole object that the user is tryign to save 
+            // {username : 'eric', email : 'mm@.com, role: 'admin ', powerLevel: 9001}
+            message: function (userObject) {
+                return `${userObject.email} is not a valid email address`;
+            },
+        }
     },
     role: {
         type: String,
@@ -20,6 +43,7 @@ const userSchema = new Schema({
         min: 1,
         max: 10000,
     },
+
 })
 
 const User = model('Users', userSchema);
