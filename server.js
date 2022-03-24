@@ -30,7 +30,7 @@ mongoose.connect('mongodb://localhost:27017/todoMongo2')
     .catch(err => console.log('error'))
 
 app.use(express.json)
-app.use(express.urlencoded({ extends: true }));
+app.use(express.urlencoded({ extended: true }))
 app.use(routes);
 
 app.listen(PORT, () => console.log('this server is running '));
