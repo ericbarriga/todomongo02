@@ -43,6 +43,19 @@ const userSchema = new Schema({
         min: 1,
         max: 10000,
     },
+    //hobbies 
+    // this is just a array of data that is being saved 
+    hobbies: [String],
+    favoriteCryptos: {
+        type: String,
+        uppercase: true,
+        trim: true,
+    },
+    secondCryptos: {
+        type: String,
+        uppercase: true,
+        trim: true,
+    }
 
 })
 
